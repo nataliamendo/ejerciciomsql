@@ -1,0 +1,68 @@
+CREATE DATABASE IF NOT EXISTS ejericio_sql;
+
+CREATE TABLE Manufacturers (
+        Code INTEGER PRIMARY KEY NOT NULL,
+        Name TEXT NOT NULL 
+);
+
+CREATE TABLE Products (
+        Code INTEGER PRIMARY KEY NOT NULL,
+        Name TEXT NOT NULL ,
+        Price REAL NOT NULL ,
+        Manufacturer INTEGER NOT NULL 
+                CONSTRAINT fk_Manufacturers_Code REFERENCES MANUFACTURERS(Code)
+);
+
+select name from products;
+
+select name, price from products;
+
+select name from products where price <=200;
+
+select * from products where price between 60 and 120;
+
+select name, price*100 from products;
+
+select avg(price) from products;
+
+select avg(price) from products where code = 2;
+
+select count(price) from products where price = 180;
+
+select products.name, products.price, manufacturers.name from products, manufacturers where products.manufacturer = manufacturers.code; 
+
+select Manufactrer.name from Manufacturer where MAX(Products.price);
+
+select name, price from products where price (select min(price) from products);
+
+select name, price from group by manufacturer;
+
+select avg(price), manufacturers.name from products inner join manufacturers on products.manufacturer = manufacturers.code group by manufacturers.name;
+
+select name, price  from products where price >=180 orden by price desc, name;
+
+select * from producs, manufacturers where products.manufacturer = manufacturers.code;
+
+select products.name, price, manufacturers.name from products, manufacturers where products.manufacturer = manufacturer.code;
+
+
+ /* Without INNER JOIN */
+ SELECT AVG(Price), Manufacturers.Name
+   FROM Products, Manufacturers
+   WHERE Products.Manufacturer = Manufacturers.Code
+   GROUP BY Manufacturers.Name
+   HAVING AVG(Price) >= 150;
+
+select products.name, products.price, manufacturers.name from prodcuts, manufacturers where products.manufacturer = manufacturers.code and products.price = (select max(products.price) from products where products.manufacturer = manufacturers.code);
+
+insert into producs(name, price, manufacturer) values ('Loudspeakers' , 70, 2);
+update products ser name = 'Laser printer' where code = 8;
+
+update products set price = price * 0.9;
+
+update products ser price = price*0.9 where price >= 120;
+
+
+
+
+
